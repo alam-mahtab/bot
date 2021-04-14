@@ -6,6 +6,7 @@ import datetime
 import pytz
 import json
 import traceback
+import time
 
 # P_TIMEZONE = pytz.timezone(config.TIMEZONE)
 # TIMEZONE_COMMON_NAME = config.TIMEZONE_COMMON_NAME
@@ -66,5 +67,12 @@ def query_handler(call):
     bot.send_message(call.message.chat.id, answer,reply_markup=keyboard,parse_mode='HTML')
     # bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
 
+def main():
+    while True:
+        time.sleep(0.5)
+
+
+# if __name__ == '__main__':
+#     main()
 
 bot.polling(none_stop=True)
