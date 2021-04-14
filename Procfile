@@ -1,1 +1,1 @@
-web: python bot.py 8080
+web: python bot.py --host=0.0.0.0 --port=${PORT:-5000}
