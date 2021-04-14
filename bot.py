@@ -67,9 +67,9 @@ def query_handler(call):
     bot.send_message(call.message.chat.id, answer,reply_markup=keyboard,parse_mode='HTML')
     # bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
 
-def main():
-    while True:
-        time.sleep(0.5)
+# def main():
+#     while True:
+#         time.sleep(0.5)
 
 
 # if __name__ == '__main__':
