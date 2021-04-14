@@ -17,7 +17,7 @@ def start_command(message):
     keyboard = menu_buttons()
     bot.send_message(
        message.chat.id,
-       '\n\nETH Miner \n\n is fully automatic. Start earning ETH now for free.',reply_markup=keyboard,parse_mode='HTML'
+       '\n\nETH Miner \n is fully automatic. Start earning ETH now for free.',reply_markup=keyboard,parse_mode='HTML'
    )
 
 def menu_buttons():
