@@ -36,7 +36,7 @@ def handle_account_request(id,name):
   # ## refer https://pypi.python.org/pypi/selenium
   text = 'User:'+u_name+' views his/her account details' 
   URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
-  url = URL.replace(" ","")
+  url = URL.replace(" ","%20")
   urllib.request.urlopen(url)
   return account_detail
 
@@ -57,7 +57,7 @@ def handle_referals_request(id,name):
     ▫️ Link: https://t.me/ETH_Miner_us_bot?start="+str(referal_code)+"\n "
   text = 'User:'+u_name+' with referal code:'+referal_code+' views his/her referal statement' 
   URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
-  url = URL.replace(" ","")
+  url = URL.replace(" ","%20")
   urllib.request.urlopen(url)
   return result
 
@@ -72,8 +72,8 @@ def handle_withdraw_request(id,name):
     ✖️ Refer 10 friends. "
   text = 'User:'+u_name+' views his/her withdraw criteria' 
   URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
-  # driver.quit()
-  urllib.request.urlopen(URL)
+  url = URL.replace(" ","%20")
+  urllib.request.urlopen(url)
   return result
 
 def handle_upgrade_request(id,name):
@@ -109,7 +109,7 @@ def handle_upgrade_request(id,name):
     "
   text = 'User:'+u_name+' views Upgrade Plans' 
   URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
-  url = URL.replace(" ","")
+  url = URL.replace(" ","%20")
   urllib.request.urlopen(url)
   return result
 
@@ -132,7 +132,7 @@ def handle_ranking_request(id, name):
   #result = '<b>' + 'Ranking' + ' -> '  ':</b>\n\n'
   text = 'User:'+u_name+' views overall Top 10 Ranking' 
   URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
-  url = URL.replace(" ","")
+  url = URL.replace(" ","%20")
   urllib.request.urlopen(url)
   return result
 
@@ -175,7 +175,7 @@ def handle_payment_request(id, name):
   #result = '<b>' + 'Payment' + ' -> ' +  ':</b>\n\n'
   text = 'User:'+u_name+' views Payment requests' 
   URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
-  url = URL.replace(" ","")
+  url = URL.replace(" ","%20")
   urllib.request.urlopen(url)
   return result
 
@@ -192,7 +192,7 @@ def handle_stats_request(id,name):
   #result = '<b>' + 'Stats' + ' -> ' +  ':</b>\n\n'
   text = "User:"+u_name+" views Company's stats"
   URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
-  url = URL.replace(" ","")
+  url = URL.replace(" ","%20")
   urllib.request.urlopen(url)
   return result
 
@@ -202,7 +202,7 @@ def handle_checkin_request(id,name):
     "
   text = "User:"+u_name+" just checked-in"
   URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
-  url = URL.replace(" ","")
+  url = URL.replace(" ","%20")
   urllib.request.urlopen(url)
   return result
 
