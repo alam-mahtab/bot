@@ -5,7 +5,6 @@ import requests
 import config
 import json
 import webbrowser
-from selenium import webdriver
 import urllib.request
 # URL = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
 #URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text=Hello+bot'
