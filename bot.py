@@ -7,6 +7,7 @@ import pytz
 import json
 import traceback
 import time
+import urllib.request
 # from os import environ
 # from flask import Flask
 
@@ -17,7 +18,6 @@ bot = telebot.TeleBot(config.TOKEN)
 
 @bot.message_handler(commands=['start'])
 def start_command(message):
-    '<br>'
     keyboard = menu_buttons()
     bot.send_message(
        message.chat.id,
@@ -29,7 +29,8 @@ def menu_buttons():
     keyboard = telebot.types.InlineKeyboardMarkup()
     keyboard.row(
         telebot.types.InlineKeyboardButton('👤 Account', callback_data='account'),
-        telebot.types.InlineKeyboardButton('👤 Referrals', callback_data='referals')
+        telebot.types.InlineKeyboardButton('👤 Referrals', callback_data='referals'),
+        telebot.types.InlineKeyboardButton('👤 Check-in', callback_data='check-in')
     )
     keyboard.row(
         telebot.types.InlineKeyboardButton('💲 Upgrade', callback_data='upgrade'),
@@ -54,17 +55,19 @@ def query_handler(call):
     if call.data == 'account':
         answer = api_handler.handle_account_request(id,name)
     elif call.data == 'referals':
-        answer = api_handler.handle_referals_request(id)
+        answer = api_handler.handle_referals_request(id,name)
     elif call.data == 'upgrade':
-        answer = api_handler.handle_upgrade_request(id)
+        answer = api_handler.handle_upgrade_request(id,name)
     elif call.data == 'withdraw':
-        answer = api_handler.handle_withdraw_request(id)
+        answer = api_handler.handle_withdraw_request(id,name)
     elif call.data == 'ranking':
-        answer = api_handler.handle_ranking_request(id)
+        answer = api_handler.handle_ranking_request(id,name)
     elif call.data == 'payment':
-        answer = api_handler.handle_payment_request(id)
+        answer = api_handler.handle_payment_request(id,name)
     elif call.data == 'stats':
-        answer = api_handler.handle_stats_request(id)
+        answer = api_handler.handle_stats_request(id,name)
+    elif call.data == 'check-in':
+        answer = api_handler.handle_checkin_request(id,name)
     else:
         answer = 'How can i help you! '
     bot.send_message(call.message.chat.id, answer,reply_markup=keyboard,parse_mode='HTML')

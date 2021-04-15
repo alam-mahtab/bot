@@ -2,9 +2,13 @@
 import re
 import requests
 #from prompt_toolkit import HTML
+import config
 import json
+import webbrowser
+from selenium import webdriver
+import urllib.request
 # URL = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
-
+#URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text=Hello+bot'
 def handle_account_request(id,name):
   u_name = name
   # u_name1 = ("\033[1m" +{name}+ "\033[0m")
@@ -26,9 +30,19 @@ def handle_account_request(id,name):
     Email:\n \
                     \n \
     /Update_Email "
+
+  #webbrowser.open(URL,2, False)
+  # driver = webdriver.PhantomJS("./phantomjs") # path to phantomjs binary
+  # driver.get(URL)
+  # ## refer https://pypi.python.org/pypi/selenium
+  text = 'User:'+u_name+' views his/her account details' 
+  URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
+  # driver.quit()
+  urllib.request.urlopen(URL)
   return account_detail
 
-def handle_referals_request(id):
+def handle_referals_request(id,name):
+  u_name = name
   referal_code ="5656565"
   #result = '<b>' + 'Referrals code' + ' -> ' + referal_code + ':</b>\n\n'
   result = f"👥 REFERRAL SYSTEM \n \
@@ -42,17 +56,14 @@ def handle_referals_request(id):
     ▫️ Bonus: 0.00500000 ETH for every referrals. \n \
                     \n \
     ▫️ Link: https://t.me/ETH_Miner_us_bot?start="+str(referal_code)+"\n "
+  text = 'User:'+u_name+' with referal code:'+referal_code+' views his/her referal statement' 
+  URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
+  # driver.quit()
+  urllib.request.urlopen(URL)
   return result
 
-def handle_withdraw_request(id):
-  """💵 WITHDRAW
-
-✖️ Minimum withdrawal: 0.25000000 ETH
-✖️ Update wallet for your account.
-✖️ Update email for your account.
-✖️ Refer 10 friends.
-
-⚠️ You must have all checklist completed! """
+def handle_withdraw_request(id,name):
+  u_name = name
   #result = '<b>' + 'Withdraw' + ' -> '  ':</b>\n\n'
   result = f"💵 WITHDRAW \n \
                      \n \
@@ -60,9 +71,14 @@ def handle_withdraw_request(id):
     ✖️ Update wallet for your account.\n \
     ✖️ Update email for your account.\n \
     ✖️ Refer 10 friends. "
+  text = 'User:'+u_name+' views his/her withdraw criteria' 
+  URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
+  # driver.quit()
+  urllib.request.urlopen(URL)
   return result
 
-def handle_upgrade_request(id):
+def handle_upgrade_request(id,name):
+  u_name = name
   #result = '<b>' + 'Upgrade' + ' -> ' ':</b>\n\n'
   result = f"UPGRADE ACCOUNT \n \
                      \n \
@@ -91,10 +107,15 @@ def handle_upgrade_request(id):
   https://etherscan.io/address/0x719071dAF5dAEDAF69C849c141880Dbc64A439b3\n \
       \n \
   ⚠️ Only send Ethereum (ETH) to this address! \n \
-                       "
+    "
+  text = 'User:'+u_name+' views Upgrade Plans' 
+  URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
+  # driver.quit()
+  urllib.request.urlopen(URL)
   return result
 
-def handle_ranking_request(id):
+def handle_ranking_request(id, name):
+  u_name = name
   result = f"🏆 RANKING\n \
     \n \
     \n \
@@ -110,9 +131,14 @@ def handle_ranking_request(id):
   🔹 Vania Silva +412  \n \
     "
   #result = '<b>' + 'Ranking' + ' -> '  ':</b>\n\n'
+  text = 'User:'+u_name+' views overall Top 10 Ranking' 
+  URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
+  # driver.quit()
+  urllib.request.urlopen(URL)
   return result
 
-def handle_payment_request(id):
+def handle_payment_request(id, name):
+  u_name = name
   result = f"💲 PAYMENT HISTORY\n \
     \n \
 ✅ 0.32150000 ETH, 04-14 09:27 \n \
@@ -148,9 +174,14 @@ def handle_payment_request(id):
 ▫️ Only 10 latest payments are displayed! \n \
   "
   #result = '<b>' + 'Payment' + ' -> ' +  ':</b>\n\n'
+  text = 'User:'+u_name+' views Payment requests' 
+  URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
+  # driver.quit()
+  urllib.request.urlopen(URL)
   return result
 
-def handle_stats_request(id):
+def handle_stats_request(id,name):
+  u_name = name
   result = f"📈 BOT STATS \n \
     \n \
 ◽️ Monthly withdraw: 11647.3522 ETH \n \
@@ -160,8 +191,21 @@ def handle_stats_request(id):
 ◽️ Online: 2,833 \n \
   "
   #result = '<b>' + 'Stats' + ' -> ' +  ':</b>\n\n'
+  text = "User:"+u_name+" views Company's stats"
+  URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
+  # driver.quit()
+  urllib.request.urlopen(URL)
   return result
 
+def handle_checkin_request(id,name):
+  u_name = name
+  result = f"📈 Daily Check-in \n \
+    "
+  text = "User:"+u_name+" just checked-in"
+  URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
+  # driver.quit()
+  urllib.request.urlopen(URL)
+  return result
 
 
 
