@@ -8,6 +8,7 @@ import json
 import traceback
 import time
 import urllib.request
+import requests
 # from os import environ
 # from flask import Flask
 
@@ -48,9 +49,11 @@ def query_handler(call):
     keyboard = menu_buttons()
     bot.answer_callback_query(callback_query_id=call.id)
     id = call.from_user.id
+    #print(call)
     fname=call.from_user.first_name
     lname=call.from_user.last_name
     name = fname + " "+ lname
+
     answer = ' '
     if call.data == 'account':
         answer = api_handler.handle_account_request(id,name)

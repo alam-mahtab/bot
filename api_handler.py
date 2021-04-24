@@ -6,12 +6,29 @@ import config
 import json
 import webbrowser
 import urllib.request
-# URL = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
+import requests
+#URL = 'http://127.0.0.1:5000/api/v1/plans'
 #URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text=Hello+bot'
 def handle_account_request(id,name):
   u_name = name
+  url1 = "http://127.0.0.1:5000/api/v1/users"
+  payload= json.dumps({
+          "name": f"{ u_name }",
+          "telegram_user_id": f"{ id }",
+          "email_id": ""
+          })
+
+  headers = {
+    'API-Key': '65553183-4dff-42ee-ad2b-4edd15b38113',
+    'telegram_user_id': f"{ id }",
+    'Content-Type': 'application/json'
+        }
+
+  response = requests.request("POST", url1, headers=headers, data=payload)
+
   # u_name1 = ("\033[1m" +{name}+ "\033[0m")
   # print(u_name1)
+  print(response.text)
   account_detail = f"GENERAL INFORMATION \n \
                      \n \
     User:{ u_name }\n \
@@ -78,27 +95,32 @@ def handle_withdraw_request(id,name):
 
 def handle_upgrade_request(id,name):
   u_name = name
-  #result = '<b>' + 'Upgrade' + ' -> ' ':</b>\n\n'
-  result = f"UPGRADE ACCOUNT \n \
-                     \n \
-        🔹 Plan: CRAB\n \
-        💲 Price: 0.125 ETH \n \
-        ⚡️ Speed: 1500 MH/s \n \
-                0.36000000 ETH/day \n \
-                10.80000000 ETH/month \n \
-        💵 Withdrawal: 6 hours \n \
-        ⌚️ Contract length: 1 year \n \
-                      \n \
-                      \n \
-        🔹 Plan: SHARK \n \
-        💲 Price: 1.25 ETH \n \
-        ⚡️ Speed: 15 GH/s \n \
-                0.72000000 ETH/day\n \
-                21.60000000 ETH/month\n \
-        💵 Withdrawal: instant \n \
-        ⌚️ Contract length: 1 year \n \
-                      \n \
-                      \n \
+  url1 = "http://127.0.0.1:5000/api/v1/plans"
+  payload={}
+  headers = {
+    'API-Key': '65553183-4dff-42ee-ad2b-4edd15b38113',
+    'telegram_user_id': '{id}'
+        }
+
+  response = requests.request("GET", url1, headers=headers, data=payload)
+  #print(response.text)
+  resp = response.text
+  resp_dict = json.loads(resp)
+  result1 = f"UPGRADE ACCOUNT \n \
+                      "
+  plan_list = resp_dict["plan_list"]
+  for i in plan_list: 
+    result = f" \n\
+          🔹 Plan:{i['plan_name']} \n \
+          💲 Price:{ i['price'] } ETH \n \
+          ⚡️ Speed: 1500 MH/s \n \
+                  { i['max_coin_per_day'] } ETH/day \n \
+                  { i['max_coin_per_month'] } ETH/month \n \
+          💵 Withdrawal: { i['withdrawal'] } hours \n \
+          ⌚️ Contract length: { i['contract_length'] }  \n \
+                        "
+    result1 = result1 + result
+  result2 = result1 +"\n\
   ◽️ Please send Ethereum to the address bellow to Upgrade your account:\n \
     \n \
   0x719071dAF5dAEDAF69C849c141880********* \n \
@@ -111,7 +133,7 @@ def handle_upgrade_request(id,name):
   URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
   url = URL.replace(" ","%20")
   urllib.request.urlopen(url)
-  return result
+  return result2
 
 def handle_ranking_request(id, name):
   u_name = name
