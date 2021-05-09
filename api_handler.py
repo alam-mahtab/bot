@@ -64,7 +64,7 @@ def handle_referals_request(id,name,header):
     ▫️ Active Referrals: { refer['no_of_active_referrals'] } \n \
     ▫️ Commission: 10% of referrals earnings. \n \
     ▫️ Bonus: 5 WIN Coin for every referrals. \n \
-    ▫️ Link: https://t.me/mixitupbot?start="+str(referal_code)+"\n "
+    ▫️ Link: https://t.me/alam12bot?start="+str(referal_code)+"\n "
   text = 'User:'+u_name+' with referal code:'+str(referal_code)+' views his/her referal statement' 
   #URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
   URL = config.URL_For_Response+text
