@@ -21,8 +21,8 @@ def get_id(message):
 def get_name(message):
     fname=message.from_user.first_name
     lname=message.from_user.last_name
-    name = fname + " "+ lname
-    return name
+    name = str(fname) + " "+ str(lname)
+    return str(name)
 def get_header(message):
     headers = {
         'API-Key': config.API_Key,
@@ -51,7 +51,11 @@ def start_command(message):
             "name": f"{ name }",
             "referred_by": f"{ unique_code }"
             })
-    header = get_header(message)
+    header = {
+        'API-Key': config.API_Key,
+        'telegram_user_id': f"{id}",
+        'Content-Type': 'application/json'
+            }
     response = requests.request("POST", url1, headers=header, data=payload)
     resp = response.text
     bot.send_message(
@@ -85,7 +89,7 @@ def query_handler(call):
     id = call.from_user.id
     fname=call.from_user.first_name
     lname=call.from_user.last_name
-    name = fname + " "+ lname
+    name = str(fname)+ " "+ str(lname)
     header = get_header_call(call)
     answer = ' '
     if call.data == 'account':
