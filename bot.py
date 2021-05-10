@@ -10,7 +10,6 @@ import time
 import urllib.request
 import requests
 import urllib.parse
-from simple_colors import *
 
 bot = telebot.TeleBot(config.TOKEN)
 
