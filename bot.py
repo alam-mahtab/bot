@@ -10,8 +10,21 @@ import time
 import urllib.request
 import requests
 import urllib.parse
+from simple_colors import *
 
 bot = telebot.TeleBot(config.TOKEN)
+
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
 
 def extract_unique_code(text):
     # Extracts the unique_code from the sent /start command.
@@ -58,9 +71,10 @@ def start_command(message):
             }
     response = requests.request("POST", url1, headers=header, data=payload)
     resp = response.text
+    var1 = (f'\033[1m CHI TRON Miner \033[0m')
     bot.send_message(
        message.chat.id,
-       '\n\nCHI WIN Miner \n is fully automatic. Start earning WIN now for free.',reply_markup=keyboard,parse_mode='HTML'
+       f'CHI TRON Miner \n Is fully automatic. Start earning TRX now for free.',reply_markup=keyboard,parse_mode='HTML'
    )
 
 def menu_buttons():

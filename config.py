@@ -6,5 +6,6 @@ CHAT = '-477474410'  # testgroup
 TIMEZONE = 'Europe/Kiev'
 TIMEZONE_COMMON_NAME = 'Kiev'
 URL_Server = 'http://65.2.151.86:5000/api/'
+#URL_Server = 'http://127.0.0.1:5000/api/'
 URL_For_Response = 'https://api.telegram.org/bot'+(TOKEN)+'/sendMessage?chat_id='+(CHAT)+'&text='
 API_Key = '65553183-4dff-42ee-ad2b-4edd15b38113'

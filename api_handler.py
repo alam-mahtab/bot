@@ -22,14 +22,14 @@ def handle_account_request(id,name,header):
   result1 = f"GENERAL INFORMATION \n\
     \n\
     User:  { u_name }\n \
-    Balance: {account['total_balance']} WIN  \n \
+    Balance: {account['total_balance']} TRX  \n \
                     "
   for i in plan: 
     result = f" \n\
       Plan: {i['plan_name']} \n \
     ⚡️ Speed: {i['speed']} \n \
-             {i['max_coin_per_day']} ETH/day \n \
-             {i['max_coin_per_month']} ETH/month \n \
+             {i['max_coin_per_day']} TRX/day \n \
+             {i['max_coin_per_month']} TRX/month \n \
       "
     result1 = result1 + result
   result2 = result1 + f"  \n\
@@ -59,11 +59,11 @@ def handle_referals_request(id,name,header):
   refer = resp_dict["result"]
   #result = '<b>' + 'Referrals code' + ' -> ' + referal_code + ':</b>\n\n'
   results = f"👥 REFERRAL SYSTEM \n \
-    ▫️ Earnings: { refer['earnings' ]} WIN\n \
+    ▫️ Earnings: { refer['earnings' ]} TRX\n \
     ▫️ Referrals: { refer['no_of_referrals']} \n \
     ▫️ Active Referrals: { refer['no_of_active_referrals'] } \n \
     ▫️ Commission: 10% of referrals earnings. \n \
-    ▫️ Bonus: 5 WIN Coin for every referrals. \n \
+    ▫️ Bonus: 3 TRX Coin for every referrals. \n \
     ▫️ Link: https://t.me/alam12bot?start="+str(referal_code)+"\n "
   text = 'User:'+u_name+' with referal code:'+str(referal_code)+' views his/her referal statement' 
   #URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
@@ -106,7 +106,7 @@ def handle_withdraw_request(id,name,header):
   #   print("else executed")
   result = f"💵 WITHDRAW \n \
                      \n \
-    {value1[0]} Minimum withdrawal: 0.25000000 ETH \n \
+    {value1[0]} Minimum withdrawal: 100 TRX \n \
     {value1[1]} Update wallet for your account.\n \
     {value1[2]} Update email for your account.\n \
     {value1[3]} Refer 10 friends. \n \
@@ -139,22 +139,22 @@ def handle_upgrade_request(id,name,header):
   for i in plan_list: 
     result = f" \n\
           🔹 Plan:{i['plan_name']} \n \
-          💲 Price:{ i['price'] } ETH \n \
+          💲 Price:{ i['price'] } TRX \n \
           ⚡️ Speed: 1500 MH/s \n \
-                  { i['max_coin_per_day'] } ETH/day \n \
-                  { i['max_coin_per_month'] } ETH/month \n \
+                  { i['max_coin_per_day'] } TRX/day \n \
+                  { i['max_coin_per_month'] } TRX/month \n \
           💵 Withdrawal: { i['withdrawal'] } hours \n \
           ⌚️ Contract length: { i['contract_length'] }  \n \
                         "
     result1 = result1 + result
   result2 = result1 +"\n\
-  ◽️ Please send Ethereum to the address bellow to Upgrade your account:\n \
+  ◽️ Please send Tron to the address bellow to Upgrade your account:\n \
     \n \
-  TVwykxTYGXBT5ZLsqkYq4P2N4K1DVhHHFN \n \
+  TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW \n \
       \n \
   https://btt.io/address/TVwykxTYGXBT5ZLsqkYq4P2N4K1DVhHHFN\n \
       \n \
-  ⚠️ Only send Ethereum (ETH) to this address! \n \
+  ⚠️ Only send Tron (TRX) to this address! \n \
     "
   text = 'User:'+u_name+' views Upgrade Plans' 
   URL = config.URL_For_Response+text
@@ -173,10 +173,12 @@ def handle_ranking_request(id, name,header):
     "
   plan_list = resp_dict["ranking"]
   for i in plan_list: 
-    result = f" \n\
-      {i['id']}  {i['name']}  {i['coin']} \n \
-      "
-    result1 = result1 + result
+    #if int(i['id']) < 6:
+      result = f" \n\
+        {i['id']}  {i['name']}  {i['coin']} \n \
+        "
+      result1 = result1 + result
+    #else:
   # result = f"🏆 RANKING\n \
   #   \n \
   #   \n \
@@ -216,7 +218,7 @@ def handle_payment_request(id, name,header):
       "
     result1 = result1 + result
   result2 = result1 +"\n\
-  ▫️ Only 5 latest payments are displayed!"
+  ▫️ Only 10 latest payments are displayed!"
 #   result = f"💲 PAYMENT HISTORY\n \
 #     \n \
 # ✅ 0.32150000 ETH, 04-14 09:27 \n \
