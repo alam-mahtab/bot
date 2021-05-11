@@ -203,14 +203,19 @@ def withdraw(message):
         chat_id = get_id(message)
         name = get_name(message)
         email = message.text
+        print(email)
         end_point = 'v1/withdraw'
         url1 = urllib.parse.urljoin(config.URL_Server, end_point)
+        #print((url1))
         payload = json.dumps({
-        "withdraw_amount": f"{ email }"
+        "withdraw_amount": int(email)
         })
         header = get_header(message)
+        #print(payload)
+        #print(header)
 
         response = requests.request("POST", url1, headers=header, data=payload)
+        #print(response)
         bot.send_message(chat_id, "Request raised for payment of : " + email + " Coins")
         text = "User:"+name+" Raised a paymnet request of " + email + " Coins"
         URL = config.URL_For_Response+text
