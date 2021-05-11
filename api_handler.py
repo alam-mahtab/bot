@@ -6,12 +6,10 @@ import webbrowser
 import urllib.request
 import requests
 import urllib.parse
-import telebot
-bot = telebot.TeleBot(config.TOKEN)
+#from prompt_toolkit import print_formatted_text, HTML
 
 def handle_account_request(id,name,header):
   u_name = name
-  #url1 = "http://127.0.0.1:5000/api/v1/users"
   end_point = 'v1/users'
   url1 = urllib.parse.urljoin(config.URL_Server, end_point)
   response = requests.request("GET", url1, headers=header)
@@ -33,7 +31,7 @@ def handle_account_request(id,name,header):
       "
     result1 = result1 + result
   result2 = result1 + f"  \n\
-    ETH wallet:    {account['wallet']}\n \
+    TRX wallet:    {account['wallet']}\n \
     /Update_Wallet\n \
                     \n \
     Email:    {account['email_id']} \n \
@@ -62,7 +60,6 @@ def handle_referals_request(id,name,header):
     ▫️ Earnings: { refer['earnings' ]} TRX\n \
     ▫️ Referrals: { refer['no_of_referrals']} \n \
     ▫️ Active Referrals: { refer['no_of_active_referrals'] } \n \
-    ▫️ Commission: 10% of referrals earnings. \n \
     ▫️ Bonus: 3 TRX Coin for every referrals. \n \
     ▫️ Link: https://t.me/alam12bot?start="+str(referal_code)+"\n "
   text = 'User:'+u_name+' with referal code:'+str(referal_code)+' views his/her referal statement' 
@@ -74,12 +71,9 @@ def handle_referals_request(id,name,header):
 
 def handle_withdraw_request(id,name,header):
   u_name = name
-  work = False
   end_point = 'v1/withdraw/checklist'
   url1 = urllib.parse.urljoin(config.URL_Server, end_point)
-
   response = requests.request("GET", url1, headers=header)
-
   resp = response.text
   resp_dict = json.loads(resp)
 
@@ -127,11 +121,14 @@ def handle_withdraw_request(id,name,header):
   
 def handle_upgrade_request(id,name,header):
   u_name = name
-  #url1 = "http://127.0.0.1:5000/api/v1/plans"
   end_point = 'v1/plans'
   url1 = urllib.parse.urljoin(config.URL_Server, end_point)
   response = requests.request("GET", url1, headers=header)
   resp = response.text
+  add = ("_".join('TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW'))
+  add1 = ('<u>This is underlined</u>')
+  print(add)
+  print(add1)
   resp_dict = json.loads(resp)
   result1 = f"UPGRADE ACCOUNT \n \
                       "
@@ -143,17 +140,13 @@ def handle_upgrade_request(id,name,header):
           ⚡️ Speed: 1500 MH/s \n \
                   { i['max_coin_per_day'] } TRX/day \n \
                   { i['max_coin_per_month'] } TRX/month \n \
-          💵 Withdrawal: { i['withdrawal'] } hours \n \
+          💵 Withdrawal: { i['withdrawal'] }  \n \
           ⌚️ Contract length: { i['contract_length'] }  \n \
                         "
     result1 = result1 + result
   result2 = result1 +"\n\
   ◽️ Please send Tron to the address bellow to Upgrade your account:\n \
-    \n \
-  TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW \n \
-      \n \
-  https://btt.io/address/TVwykxTYGXBT5ZLsqkYq4P2N4K1DVhHHFN\n \
-      \n \
+    \n \ TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW \n \
   ⚠️ Only send Tron (TRX) to this address! \n \
     "
   text = 'User:'+u_name+' views Upgrade Plans' 
