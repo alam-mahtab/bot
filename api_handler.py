@@ -7,7 +7,6 @@ import urllib.request
 import requests
 import urllib.parse
 
-#from prompt_toolkit import print_formatted_text, HTML
 
 def handle_account_request(id,name,header):
   u_name = name
