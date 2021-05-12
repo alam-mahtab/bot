@@ -6,6 +6,7 @@ import webbrowser
 import urllib.request
 import requests
 import urllib.parse
+
 #from prompt_toolkit import print_formatted_text, HTML
 
 def handle_account_request(id,name,header):
@@ -107,9 +108,10 @@ def handle_withdraw_request(id,name,header):
       \n\
       "
   if value[0] is True and value[1] is True and value[2] is True and value[3] is True:
-    result1 = result+"\n \
+    result1 = result+f"\n \
     all checklist completed!\n \
-    /Withdraw\n "
+    /Withdraw\n \
+    For any Queries visit : {config.LINK_FOR_QUERIES}  \n\ "
   else:
     result1 = result+"\n \
     ⚠️ You must have all checklist completed!"
@@ -125,10 +127,6 @@ def handle_upgrade_request(id,name,header):
   url1 = urllib.parse.urljoin(config.URL_Server, end_point)
   response = requests.request("GET", url1, headers=header)
   resp = response.text
-  add = ("_".join('TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW'))
-  add1 = ('<u>This is underlined</u>')
-  print(add)
-  print(add1)
   resp_dict = json.loads(resp)
   result1 = f"UPGRADE ACCOUNT \n \
                       "
@@ -144,10 +142,11 @@ def handle_upgrade_request(id,name,header):
           ⌚️ Contract length: { i['contract_length'] }  \n \
                         "
     result1 = result1 + result
-  result2 = result1 +"\n\
+  result2 = result1 +f"\n\
   ◽️ Please send Tron to the address bellow to Upgrade your account:\n \
-    \n \ TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW \n \
+    \n /TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW \n \
   ⚠️ Only send Tron (TRX) to this address! \n \
+    Send your Screenshot of payment here : {config.LINK_FOR_QUERIES}  \n \
     "
   text = 'User:'+u_name+' views Upgrade Plans' 
   URL = config.URL_For_Response+text
