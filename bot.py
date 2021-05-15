@@ -10,6 +10,7 @@ import time
 import urllib.request
 import requests
 import urllib.parse
+import os
 
 bot = telebot.TeleBot(config.TOKEN)
 
@@ -57,11 +58,14 @@ def start_command(message):
         'Content-Type': 'application/json'
             }
     response = requests.request("POST", url1, headers=header, data=payload)
-    resp = response.text
-    var1 = (f'\033[1m CHI TRON Miner \033[0m')
+    path = urllib. parse. quote('jkasdbjhfjhwefdbasjhdbajhfjafvajhgfdv')
+    f_url = os.path.basename(path)
+      
+    # convert the path into clickable hyperlink
+    t1 =  '<a href="https://t.me/joinchat/5ByeiYvuay0xZWQ9">{}</a>'.format(path)
     bot.send_message(
        message.chat.id,
-       f'CHI TRON Miner \n Is fully automatic. Start earning TRX now for free.',reply_markup=keyboard,parse_mode='HTML'
+       f'CHI TRON Miner \n { t1 }\n Is fully automatic. Start earning TRX now for free.',reply_markup=keyboard,parse_mode='HTML'
    )
 
 def menu_buttons():

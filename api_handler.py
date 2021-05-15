@@ -1,3 +1,4 @@
+  
 import re
 import requests
 import config
@@ -290,9 +291,5 @@ def handle_checkin_request(id,name,header):
   url = URL.replace(" ","%20")
   urllib.request.urlopen(url)
   return result
-
-
-
-
 
 
