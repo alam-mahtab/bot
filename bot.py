@@ -65,7 +65,7 @@ def start_command(message):
     t1 =  '<a href="https://t.me/joinchat/5ByeiYvuay0xZWQ9">{}</a>'.format(path)
     bot.send_message(
        message.chat.id,
-       f'CHI TRON Miner \n { t1 }\n Is fully automatic. Start earning TRX now for free.',reply_markup=keyboard,parse_mode='HTML'
+       f'CHI TRON Miner \n Is fully automatic. Start earning TRX now for free.',reply_markup=keyboard,parse_mode='HTML'
    )
 
 def menu_buttons():

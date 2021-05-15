@@ -41,6 +41,7 @@ def handle_account_request(id,name,header):
   text = 'User:'+u_name+' views his/her account details' 
   #URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
   URL = config.URL_For_Response+text
+  print(URL)
   url = URL.replace(" ","%20")
   urllib.request.urlopen(url)
   return result2
@@ -62,7 +63,7 @@ def handle_referals_request(id,name,header):
     ▫️ Referrals: { refer['no_of_referrals']} \n \
     ▫️ Active Referrals: { refer['no_of_active_referrals'] } \n \
     ▫️ Bonus: 3 TRX Coin for every referrals. \n \
-    ▫️ Link: https://t.me/alam12bot?start="+str(referal_code)+"\n "
+    ▫️ Link: https://t.me/ChiTronMineBot?start="+str(referal_code)+"\n "
   text = 'User:'+u_name+' with referal code:'+str(referal_code)+' views his/her referal statement' 
   #URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
   URL = config.URL_For_Response+text
@@ -123,6 +124,8 @@ def handle_withdraw_request(id,name,header):
   
 def handle_upgrade_request(id,name,header):
   u_name = name
+  path = urllib. parse. quote('TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW')
+  t1 =  '<a href="https://t.me/joinchat/5ByeiYvuay0xZWQ9">{}</a>'.format(path)
   end_point = 'v1/plans'
   url1 = urllib.parse.urljoin(config.URL_Server, end_point)
   response = requests.request("GET", url1, headers=header)
@@ -144,7 +147,7 @@ def handle_upgrade_request(id,name,header):
     result1 = result1 + result
   result2 = result1 +f"\n\
   ◽️ Please send Tron to the address bellow to Upgrade your account:\n \
-    \n /TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW \n \
+    \n {t1} \n \
   ⚠️ Only send Tron (TRX) to this address! \n \
     Send your Screenshot of payment here : {config.LINK_FOR_QUERIES}  \n \
     "
