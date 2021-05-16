@@ -147,7 +147,7 @@ def handle_upgrade_request(id,name,header):
                         "
     result1 = result1 + result
   result2 = result1 +f"\n\
-  ◽️ Please send Tron to the address bellow to Upgrade your account:\
+  ◽️ Please send Tron to the address bellow to Upgrade your account:\n \
     \n `TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW` \n \
      \n ⚠️ Only send Tron (TRX) to this address! \n \
     Send your Screenshot of payment here : {config.LINK_FOR_QUERIES}  \n \
