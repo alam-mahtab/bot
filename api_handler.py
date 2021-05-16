@@ -136,8 +136,8 @@ def handle_upgrade_request(id,name,header):
   plan_list = resp_dict["plan_list"]
   for i in plan_list: 
     result = f" \n\
-          🔹 Plan:{i['plan_name']} \n \
-          💲 Price:{ i['price'] } \n \
+          🔹 Plan:  {i['plan_name']} \n \
+          💲 Price:  { i['price'] } \n \
           ⚡️ Speed: {i['speed']} \n \
                   { i['max_coin_per_day'] } TRX/day \n \
                   { i['max_coin_per_month'] } TRX/month \n \
@@ -147,7 +147,7 @@ def handle_upgrade_request(id,name,header):
     result1 = result1 + result
   result2 = result1 +f"\n\
   ◽️ Please send Tron to the address bellow to Upgrade your account:\n \
-    \n {t1} \n \
+    \n {config.LINK_OF_WALLET} \n \
   ⚠️ Only send Tron (TRX) to this address! \n \
     Send your Screenshot of payment here : {config.LINK_FOR_QUERIES}  \n \
     "
