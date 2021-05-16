@@ -115,7 +115,7 @@ def query_handler(call):
         answer = api_handler.handle_checkin_request(id,name,header)
     else:
         answer = 'How can i help you! '
-    bot.send_message(call.message.chat.id, answer,reply_markup=keyboard,parse_mode='HTML')
+    bot.send_message(call.message.chat.id, answer,reply_markup=keyboard,parse_mode='MarkDown')
 
 @bot.message_handler(commands=['Update_Email'])
 def Update_Email(message):

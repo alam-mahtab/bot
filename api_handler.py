@@ -124,8 +124,9 @@ def handle_withdraw_request(id,name,header):
   
 def handle_upgrade_request(id,name,header):
   u_name = name
-  path = urllib. parse. quote('TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW')
-  t1 =  '<a href="https://t.me/joinchat/5ByeiYvuay0xZWQ9">{}</a>'.format(path)
+  path = 'TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW'
+  t1 =  '<a>{}</a>'.format(path)
+  print(t1)
   end_point = 'v1/plans'
   url1 = urllib.parse.urljoin(config.URL_Server, end_point)
   response = requests.request("GET", url1, headers=header)
@@ -146,9 +147,9 @@ def handle_upgrade_request(id,name,header):
                         "
     result1 = result1 + result
   result2 = result1 +f"\n\
-  ◽️ Please send Tron to the address bellow to Upgrade your account:\n \
-    \n {config.LINK_OF_WALLET} \n \
-  ⚠️ Only send Tron (TRX) to this address! \n \
+  ◽️ Please send Tron to the address bellow to Upgrade your account:\
+    \n `TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW` \n \
+     \n ⚠️ Only send Tron (TRX) to this address! \n \
     Send your Screenshot of payment here : {config.LINK_FOR_QUERIES}  \n \
     "
   text = 'User:'+u_name+' views Upgrade Plans' 
