@@ -137,8 +137,8 @@ def handle_upgrade_request(id,name,header):
   for i in plan_list: 
     result = f" \n\
           🔹 Plan:{i['plan_name']} \n \
-          💲 Price:{ i['price'] } TRX \n \
-          ⚡️ Speed: 1500 MH/s \n \
+          💲 Price:{ i['price'] } \n \
+          ⚡️ Speed: {i['speed']} \n \
                   { i['max_coin_per_day'] } TRX/day \n \
                   { i['max_coin_per_month'] } TRX/month \n \
           💵 Withdrawal: { i['withdrawal'] }  \n \
