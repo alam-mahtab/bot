@@ -35,7 +35,7 @@ def handle_account_request(id,name,header):
     TRX wallet:    `{account['wallet']}`\n \
     /Update_Wallet\n \
                     \n \
-    Email:    `{account['email_id']}` \n \
+    Email:    {account['email_id']} \n \
     /Update_Email  \n\
     "
   text = 'User:'+u_name+' views his/her account details' 
