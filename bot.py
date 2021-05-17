@@ -117,7 +117,7 @@ def query_handler(call):
         answer = 'How can i help you! '
     bot.send_message(call.message.chat.id, answer,reply_markup=keyboard,parse_mode='MarkDown')
 
-@bot.message_handler(commands=['Update_Email'])
+@bot.message_handler(commands=['UpdateEmail'])
 def Update_Email(message):
     # bot.answer_callback_query(callback_query_id=message.id)
     id = get_id(message)
@@ -148,7 +148,7 @@ def email(message):
     except Exception as e:
         bot.reply_to(message, e)
 
-@bot.message_handler(commands=['Update_Wallet'])
+@bot.message_handler(commands=['UpdateWallet'])
 def Update_Wallet(message):
     id = get_id(message)
     name = get_name(message)

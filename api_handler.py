@@ -32,16 +32,15 @@ def handle_account_request(id,name,header):
       "
     result1 = result1 + result
   result2 = result1 + f"  \n\
-    TRX wallet:    {account['wallet']}\n \
+    TRX wallet:    `{account['wallet']}`\n \
     /Update_Wallet\n \
                     \n \
-    Email:    {account['email_id']} \n \
+    Email:    `{account['email_id']}` \n \
     /Update_Email  \n\
     "
   text = 'User:'+u_name+' views his/her account details' 
   #URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
   URL = config.URL_For_Response+text
-  print(URL)
   url = URL.replace(" ","%20")
   urllib.request.urlopen(url)
   return result2
