@@ -73,7 +73,7 @@ def menu_buttons():
     keyboard = telebot.types.InlineKeyboardMarkup()
     keyboard.row(
         telebot.types.InlineKeyboardButton('👤 Account', callback_data='account'),
-        telebot.types.InlineKeyboardButton('👤 Referrals', callback_data='referals'),
+        telebot.types.InlineKeyboardButton('👥 Referrals', callback_data='referals'),
         telebot.types.InlineKeyboardButton('✅ Check-in', callback_data='check-in')
     )
     keyboard.row(

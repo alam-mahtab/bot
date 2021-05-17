@@ -126,7 +126,7 @@ def handle_upgrade_request(id,name,header):
   u_name = name
   path = 'TFkMc9zFoQZVQuJB7YdbeTCoFm2FMC4rDW'
   t1 =  '<a>{}</a>'.format(path)
-  print(t1)
+  #print(t1)
   end_point = 'v1/plans'
   url1 = urllib.parse.urljoin(config.URL_Server, end_point)
   response = requests.request("GET", url1, headers=header)
@@ -287,13 +287,27 @@ def handle_checkin_request(id,name,header):
   url1 = urllib.parse.urljoin(config.URL_Server, end_point)
   
   response = requests.request("GET", url1, headers=header)
-
-  result = f"📈 Daily Check-in \n \
+  resp = response.text
+  resp_dict = json.loads(resp)
+  result1 = f"📈 Daily Check-in \n \
     "
+  stats = resp_dict["rewards"]["rewards"]
+  print(stats)
+  check = bool(stats)
+  print(check)
+  if check is True:
+    for i in stats:
+      result = f"\n \
+       {i['plan_name']} ------->  {i['reward']}  "
+      result1 = result1 + result
+  result2 = result1 +"\n\
+  ▫️ You will receive coins once in 24 hour \n\
+  ▫️ If you didn't click check-in daily you will not receive your coin based on your active plans "
+  
   text = "User:"+u_name+" just checked-in"
   URL = config.URL_For_Response+text
   url = URL.replace(" ","%20")
   urllib.request.urlopen(url)
-  return result
+  return result2
 
 
