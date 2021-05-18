@@ -289,7 +289,7 @@ def handle_checkin_request(id,name,header):
   resp = response.text
   resp_dict = json.loads(resp)
   result1 = f"📈 Daily Check-in \n \
-    "
+       "
   stats = resp_dict["rewards"]["rewards"]
   print(stats)
   check = bool(stats)
@@ -297,8 +297,13 @@ def handle_checkin_request(id,name,header):
   if check is True:
     for i in stats:
       result = f"\n \
-       {i['plan_name']} ------->  {i['reward']}  "
+       {i['plan_name']} ------->  {i['reward']} \n "
       result1 = result1 + result
+  else:
+    result = f"\n \
+  ✔️ You already receive todays reward\n \
+  ✔️ Comeback tomorrow for more coins\n"
+    result1 = result1 + result
   result2 = result1 +"\n\
   ▫️ You will receive coins once in 24 hour \n\
   ▫️ If you didn't click check-in daily you will not receive your coin based on your active plans "
