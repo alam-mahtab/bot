@@ -47,7 +47,7 @@ def start_command(message):
     id = get_id(message)
     name = get_name(message)
     end_point = 'v1/users'
-    url1 = urllib.parse.urljoin(config.URL_Server, end_point)
+    url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
     payload= json.dumps({
             "name": f"{ name }",
             "referred_by": f"{ unique_code }"
@@ -62,7 +62,7 @@ def start_command(message):
     f_url = os.path.basename(path)
       
     # convert the path into clickable hyperlink
-    t1 =  '<a href="https://t.me/joinchat/5ByeiYvuay0xZWQ9">{}</a>'.format(path)
+    t1 =  '<a style="bold">{}</a>'.format(path)
     bot.send_message(
        message.chat.id,
        f'CHI TRON Miner \n Is fully automatic. Start earning TRX now for free.',reply_markup=keyboard,parse_mode='HTML'
@@ -131,7 +131,7 @@ def email(message):
         name = get_name(message)
         email = message.text
         end_point = 'v1/users'
-        url1 = urllib.parse.urljoin(config.URL_Server, end_point)
+        url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
         payload = json.dumps({
         "name": "string",
         "telegram_user_id": f"{ chat_id }",
@@ -144,7 +144,8 @@ def email(message):
         text = "User:"+name+" Update his/her email"
         URL = config.URL_For_Response+text
         url = URL.replace(" ","%20")
-        urllib.request.urlopen(url)
+        link = url.encode('ascii', 'ignore').decode('ascii')
+        urllib.request.urlopen(link)
     except Exception as e:
         bot.reply_to(message, e)
 
@@ -163,7 +164,7 @@ def wallet(message):
         wallet = message.text
         name = get_name(message)
         end_point = 'v1/users'
-        url1 = urllib.parse.urljoin(config.URL_Server, end_point)
+        url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
 
         payload = json.dumps({
         "name": "string",
@@ -197,7 +198,7 @@ def withdraw(message):
         email = message.text
         print(email)
         end_point = 'v1/withdraw'
-        url1 = urllib.parse.urljoin(config.URL_Server, end_point)
+        url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
         #print((url1))
         payload = json.dumps({
         "withdraw_amount": int(email)
@@ -212,7 +213,8 @@ def withdraw(message):
         text = "User:"+name+" Raised a paymnet request of " + email + " Coins"
         URL = config.URL_For_Response+text
         url = URL.replace(" ","%20")
-        urllib.request.urlopen(url)
+        link = url.encode('ascii', 'ignore').decode('ascii')
+        urllib.request.urlopen(link)
     except Exception as e:
         bot.reply_to(message, e)
 

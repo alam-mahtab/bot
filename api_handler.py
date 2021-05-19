@@ -12,7 +12,7 @@ import urllib.parse
 def handle_account_request(id,name,header):
   u_name = name
   end_point = 'v1/users'
-  url1 = urllib.parse.urljoin(config.URL_Server, end_point)
+  url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
   response = requests.request("GET", url1, headers=header)
   resp = response.text
   resp_dict = json.loads(resp)
@@ -42,14 +42,15 @@ def handle_account_request(id,name,header):
   #URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
   URL = config.URL_For_Response+text
   url = URL.replace(" ","%20")
-  urllib.request.urlopen(url)
+  link = url.encode('ascii', 'ignore').decode('ascii')
+  urllib.request.urlopen(link)
   return result2
 
 def handle_referals_request(id,name,header):
   u_name = name
   referal_code =id
   end_point = 'v1/referrals'
-  url1 = urllib.parse.urljoin(config.URL_Server, end_point)
+  url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
 
   response = requests.request("GET", url1, headers=header)
   resp = response.text
@@ -67,13 +68,14 @@ def handle_referals_request(id,name,header):
   #URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
   URL = config.URL_For_Response+text
   url = URL.replace(" ","%20")
-  urllib.request.urlopen(url)
+  link = url.encode('ascii', 'ignore').decode('ascii')
+  urllib.request.urlopen(link)
   return results
 
 def handle_withdraw_request(id,name,header):
   u_name = name
   end_point = 'v1/withdraw/checklist'
-  url1 = urllib.parse.urljoin(config.URL_Server, end_point)
+  url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
   response = requests.request("GET", url1, headers=header)
   resp = response.text
   resp_dict = json.loads(resp)
@@ -118,7 +120,8 @@ def handle_withdraw_request(id,name,header):
   text = 'User:'+u_name+' views his/her withdraw criteria' 
   URL = config.URL_For_Response+text
   url = URL.replace(" ","%20")
-  urllib.request.urlopen(url)
+  link = url.encode('ascii', 'ignore').decode('ascii')
+  urllib.request.urlopen(link)
   return result1
   
 def handle_upgrade_request(id,name,header):
@@ -127,7 +130,7 @@ def handle_upgrade_request(id,name,header):
   t1 =  '<a>{}</a>'.format(path)
   #print(t1)
   end_point = 'v1/plans'
-  url1 = urllib.parse.urljoin(config.URL_Server, end_point)
+  url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
   response = requests.request("GET", url1, headers=header)
   resp = response.text
   resp_dict = json.loads(resp)
@@ -154,13 +157,14 @@ def handle_upgrade_request(id,name,header):
   text = 'User:'+u_name+' views Upgrade Plans' 
   URL = config.URL_For_Response+text
   url = URL.replace(" ","%20")
-  urllib.request.urlopen(url)
+  link = url.encode('ascii', 'ignore').decode('ascii')
+  urllib.request.urlopen(link)
   return result2
 
 def handle_ranking_request(id, name,header):
   u_name = name
   end_point = 'v1/ranking'
-  url1 = urllib.parse.urljoin(config.URL_Server, end_point)
+  url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
   response = requests.request("GET", url1, headers=header)
   resp = response.text
   resp_dict = json.loads(resp)
@@ -192,13 +196,14 @@ def handle_ranking_request(id, name,header):
   text = 'User:'+u_name+' views overall Top 10 Ranking' 
   URL = config.URL_For_Response+text
   url = URL.replace(" ","%20")
-  urllib.request.urlopen(url)
+  link = url.encode('ascii', 'ignore').decode('ascii')
+  urllib.request.urlopen(link)
   return result1
 
 def handle_payment_request(id, name,header):
   u_name = name
   end_point = 'v1/payment'
-  url1 = urllib.parse.urljoin(config.URL_Server, end_point)
+  url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
  
   response = requests.request("GET", url1, headers=header)
   resp = response.text
@@ -252,13 +257,14 @@ def handle_payment_request(id, name,header):
   text = 'User:'+u_name+' views Payment requests' 
   URL = config.URL_For_Response+text
   url = URL.replace(" ","%20")
-  urllib.request.urlopen(url)
+  link = url.encode('ascii', 'ignore').decode('ascii')
+  urllib.request.urlopen(link)
   return result2
 
 def handle_stats_request(id,name,header):
   u_name = name
   end_point = 'v1/stats'
-  url1 = urllib.parse.urljoin(config.URL_Server, end_point)
+  url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
 
   response = requests.request("GET", url1, headers=header)
   resp = response.text
@@ -277,13 +283,14 @@ def handle_stats_request(id,name,header):
   text = "User:"+u_name+" views Company's stats"
   URL = config.URL_For_Response+text
   url = URL.replace(" ","%20")
-  urllib.request.urlopen(url)
+  link = url.encode('ascii', 'ignore').decode('ascii')
+  urllib.request.urlopen(link)
   return result
 
 def handle_checkin_request(id,name,header):
   u_name = name
   end_point = 'v1/check-in'
-  url1 = urllib.parse.urljoin(config.URL_Server, end_point)
+  url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
   
   response = requests.request("GET", url1, headers=header)
   resp = response.text
@@ -311,7 +318,8 @@ def handle_checkin_request(id,name,header):
   text = "User:"+u_name+" just checked-in"
   URL = config.URL_For_Response+text
   url = URL.replace(" ","%20")
-  urllib.request.urlopen(url)
+  link = url.encode('ascii', 'ignore').decode('ascii')
+  urllib.request.urlopen(link)
   return result2
 
 
