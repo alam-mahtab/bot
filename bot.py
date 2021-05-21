@@ -1,4 +1,5 @@
 import telebot
+import sqlite3
 import config
 import api_handler
 #import pb
@@ -11,8 +12,20 @@ import urllib.request
 import requests
 import urllib.parse
 import os
+import datetime
 
 bot = telebot.TeleBot(config.TOKEN)
+
+conn = sqlite3.connect('database.db', check_same_thread=False)
+cursor = conn.cursor()
+
+
+def db_table_val(user_id: int, user_name: str, user_surname: str, username: str):
+	cursor.execute('INSERT INTO test (id ,user_id, user_name, user_surname, username) VALUES (?, ?, ?, ?, ?)', (id, user_id, user_name, user_surname, username))
+	conn.commit()
+def time_val(user_id :int, login_time : str):
+    cursor.execute('INSERT INTO time2 (user_id, login_time) VALUES ( ?, ?)', (int(user_id),str(login_time)))
+    conn.commit()
 
 def extract_unique_code(text):
     # Extracts the unique_code from the sent /start command.
@@ -60,6 +73,9 @@ def start_command(message):
     response = requests.request("POST", url1, headers=header, data=payload)
     path = urllib. parse. quote('jkasdbjhfjhwefdbasjhdbajhfjafvajhgfdv')
     f_url = os.path.basename(path)
+    #db_table_val(user_id=id, user_name=message.from_user.first_name, user_surname=message.from_user.last_name, username=message.from_user.username)
+    time_now = datetime.datetime.now()
+    time_val(user_id=id,login_time=time_now)
       
     # convert the path into clickable hyperlink
     t1 =  '<a style="bold">{}</a>'.format(path)
