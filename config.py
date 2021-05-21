@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 #TOKEN = '1754339957:AAFBOvUEk5xBs9VspnlM7R6j56n8GTwJSho' # on heroku alam12bot
-TOKEN = '1653373283:AAHJJXYqV6zW05jZlSQJC-Rg59Uc_s0sXNQ'
-#TOKEN =  '1889145741:AAGsaqF-7DnNo1lbJgSPYyunTKkEyLdoWLc'  # OF clients
-#CHAT =  '-1001377288789'         # OF Clients
+#TOKEN = '1653373283:AAHJJXYqV6zW05jZlSQJC-Rg59Uc_s0sXNQ'
+TOKEN =  '1889145741:AAGsaqF-7DnNo1lbJgSPYyunTKkEyLdoWLc'  # OF clients
+CHAT =  '-1001377288789'         # OF Clients
 #CHAT = '-477474410'  # testgroup
-CHAT = '-1001268874223'
+#CHAT = '-1001268874223'
 TIMEZONE = 'Europe/Kiev'
 TIMEZONE_COMMON_NAME = 'Kiev'
 URL_Server = 'http://65.0.22.26:5000/api/'
