@@ -173,13 +173,14 @@ def handle_ranking_request(id, name,header):
   # for count, item in enumerate(['Python','Java','C++'], 1):   # To be used to get ranking
   #   print(count, item)
   plan_list = resp_dict["ranking"]
-  for count, item in enumerate(plan_list,1): 
-    #if int(i['id']) < 6:
+  for count, item in enumerate(plan_list): 
+    #if int(count) < 6:
       # result = f" \n\
       #   {i['id']}  {i['name']}  {i['coin']} \n \
       #   "
+      batches = ['🥇','🥈','🥉','▫️','🔹','▫️','🔹','▫️','🔹','▫️']
       result = f"\n \
-        {count}.   {item['name']}  {item['coin']}\n "
+        {batches[int(count)]}.   {item['name']}  {item['coin']}\n "
       result1 = result1 + result
     #else:
   # result = f"🏆 RANKING\n \
