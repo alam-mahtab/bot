@@ -170,12 +170,16 @@ def handle_ranking_request(id, name,header):
   resp_dict = json.loads(resp)
   result1 = f"🏆 RANKING\n \
     "
+  # for count, item in enumerate(['Python','Java','C++'], 1):   # To be used to get ranking
+  #   print(count, item)
   plan_list = resp_dict["ranking"]
-  for i in plan_list: 
+  for count, item in enumerate(plan_list,1): 
     #if int(i['id']) < 6:
-      result = f" \n\
-        {i['id']}  {i['name']}  {i['coin']} \n \
-        "
+      # result = f" \n\
+      #   {i['id']}  {i['name']}  {i['coin']} \n \
+      #   "
+      result = f"\n \
+        {count}.   {item['name']}  {item['coin']}\n "
       result1 = result1 + result
     #else:
   # result = f"🏆 RANKING\n \

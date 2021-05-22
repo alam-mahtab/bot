@@ -14,18 +14,19 @@ import urllib.parse
 import os
 import datetime
 
+
 bot = telebot.TeleBot(config.TOKEN)
 
 conn = sqlite3.connect('database.db', check_same_thread=False)
 cursor = conn.cursor()
 
 
-def db_table_val(user_id: int, user_name: str, user_surname: str, username: str):
-	cursor.execute('INSERT INTO test (id ,user_id, user_name, user_surname, username) VALUES (?, ?, ?, ?, ?)', (id, user_id, user_name, user_surname, username))
-	conn.commit()
-def time_val(user_id :int, login_time : str):
-    cursor.execute('INSERT INTO time2 (user_id, login_time) VALUES ( ?, ?)', (int(user_id),str(login_time)))
-    conn.commit()
+# def db_table_val(user_id: int, user_name: str, user_surname: str, username: str):
+# 	cursor.execute('INSERT INTO test (id ,user_id, user_name, user_surname, username) VALUES (?, ?, ?, ?, ?)', (id, user_id, user_name, user_surname, username))
+# 	conn.commit()
+# def time_val(user_id :int, login_time : str):
+#     cursor.execute('INSERT INTO time2 (user_id, login_time) VALUES ( ?, ?)', (int(user_id),str(login_time)))
+#     conn.commit()
 
 def extract_unique_code(text):
     # Extracts the unique_code from the sent /start command.
@@ -52,7 +53,7 @@ def get_header_call(call):
         'Content-Type': 'application/json'
             }
     return headers
-
+is_block = True
 @bot.message_handler(commands=['start'])
 def start_command(message):
     keyboard = menu_buttons()
@@ -70,19 +71,23 @@ def start_command(message):
         'telegram_user_id': f"{id}",
         'Content-Type': 'application/json'
             }
+    #is_block = True
     response = requests.request("POST", url1, headers=header, data=payload)
     path = urllib. parse. quote('jkasdbjhfjhwefdbasjhdbajhfjafvajhgfdv')
     f_url = os.path.basename(path)
     #db_table_val(user_id=id, user_name=message.from_user.first_name, user_surname=message.from_user.last_name, username=message.from_user.username)
-    time_now = datetime.datetime.now()
-    time_val(user_id=id,login_time=time_now)
+    # time_now = datetime.datetime.now()
+    # time_val(user_id=id,login_time=time_now)
       
     # convert the path into clickable hyperlink
     t1 =  '<a style="bold">{}</a>'.format(path)
-    bot.send_message(
-       message.chat.id,
-       f'CHI TRON Miner \n Is fully automatic. Start earning TRX now for free.',reply_markup=keyboard,parse_mode='HTML'
-   )
+    if is_block is True:
+        bot.send_message(
+        message.chat.id,
+        f'CHI TRON Miner \n Is fully automatic. Start earning TRX now for free.',reply_markup=keyboard,parse_mode='HTML'
+    )
+    else:
+        bot.send_message(message.chat.id, f'You are blocked by Admin')
 
 def menu_buttons():
     '<br>'
@@ -110,36 +115,50 @@ def query_handler(call):
     id = call.from_user.id
     fname=call.from_user.first_name
     lname=call.from_user.last_name
-    name = str(fname)+ " "+ str(lname)
     header = get_header_call(call)
+    end_point = 'v1/ranking'
+    url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
+    response = requests.request("GET", url1, headers=header)
+    resp = response.text
+    resp_dict = json.loads(resp)
+    name = str(fname)+ " "+ str(lname)
+    
     answer = ' '
-    if call.data == 'account':
-        answer = api_handler.handle_account_request(id,name,header)
-    elif call.data == 'referals':
-        answer = api_handler.handle_referals_request(id,name,header)
-    elif call.data == 'upgrade':
-        answer = api_handler.handle_upgrade_request(id,name,header)
-    elif call.data == 'withdraw':
-        answer = api_handler.handle_withdraw_request(id,name,header)
-    elif call.data == 'ranking':
-        answer = api_handler.handle_ranking_request(id,name,header)
-    elif call.data == 'payment':
-        answer = api_handler.handle_payment_request(id,name,header)
-    elif call.data == 'stats':
-        answer = api_handler.handle_stats_request(id,name,header)
-    elif call.data == 'check-in':
-        answer = api_handler.handle_checkin_request(id,name,header)
+    if is_block is True:
+        if call.data == 'account':
+            answer = api_handler.handle_account_request(id,name,header)
+        elif call.data == 'referals':
+            answer = api_handler.handle_referals_request(id,name,header)
+        elif call.data == 'upgrade':
+            answer = api_handler.handle_upgrade_request(id,name,header)
+        elif call.data == 'withdraw':
+            answer = api_handler.handle_withdraw_request(id,name,header)
+        elif call.data == 'ranking':
+            answer = api_handler.handle_ranking_request(id,name,header)
+        elif call.data == 'payment':
+            answer = api_handler.handle_payment_request(id,name,header)
+        elif call.data == 'stats':
+            answer = api_handler.handle_stats_request(id,name,header)
+        elif call.data == 'check-in':
+            answer = api_handler.handle_checkin_request(id,name,header)
+        else:
+            answer = 'How can i help you! '
+        bot.send_message(call.message.chat.id, answer,reply_markup=keyboard,parse_mode='MarkDown')
     else:
-        answer = 'How can i help you! '
-    bot.send_message(call.message.chat.id, answer,reply_markup=keyboard,parse_mode='MarkDown')
+        bot.send_message(call.message.chat.id, f'You are blocked by Admin')
 
 @bot.message_handler(commands=['UpdateEmail'])
 def Update_Email(message):
     # bot.answer_callback_query(callback_query_id=message.id)
     id = get_id(message)
     name = get_name(message)
-    sent = bot.send_message(message.chat.id, 'Enter Your Email_Id:'  )
-    bot.register_next_step_handler(sent, email)
+    #is_block = True
+    if is_block is True:
+        sent = bot.send_message(message.chat.id, 'Enter Your Email_Id:'  )
+        bot.register_next_step_handler(sent, email)
+    else:
+        bot.send_message(message.chat.id, f'You are blocked by Admin')
+    
 
 def email(message):
     try:
@@ -169,10 +188,12 @@ def email(message):
 def Update_Wallet(message):
     id = get_id(message)
     name = get_name(message)
-
-    answer = ' '
-    sent = bot.send_message(message.chat.id, 'Enter Your Wallet:')
-    bot.register_next_step_handler(sent, wallet)
+    #is_block = True
+    if is_block is True:
+        sent = bot.send_message(message.chat.id, 'Enter Your Wallet:')
+        bot.register_next_step_handler(sent, wallet)
+    else:
+        bot.send_message(message.chat.id, f'You are blocked by Admin')
 
 def wallet(message):
     try:
@@ -204,8 +225,12 @@ def withdraw_request(message):
     # bot.answer_callback_query(callback_query_id=message.id)
     id = get_id(message)
     name = get_name(message)
-    sent = bot.send_message(message.chat.id, 'Enter Amount You want to withdraw:'  )
-    bot.register_next_step_handler(sent, withdraw)
+    #is_block = True
+    if is_block is True:
+        sent = bot.send_message(message.chat.id, 'Enter Amount You want to withdraw:'  )
+        bot.register_next_step_handler(sent, withdraw)
+    else:
+        bot.send_message(message.chat.id, f'You are blocked by Admin')
 
 def withdraw(message):
     try:
@@ -222,7 +247,6 @@ def withdraw(message):
         header = get_header(message)
         #print(payload)
         #print(header)
-
         response = requests.request("POST", url1, headers=header, data=payload)
         #print(response)
         bot.send_message(chat_id, "Request raised for payment of : " + email + " Coins")
