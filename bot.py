@@ -72,22 +72,28 @@ def start_command(message):
         'Content-Type': 'application/json'
             }
     #is_block = True
-    response = requests.request("POST", url1, headers=header, data=payload)
-    path = urllib. parse. quote('jkasdbjhfjhwefdbasjhdbajhfjafvajhgfdv')
-    f_url = os.path.basename(path)
-    #db_table_val(user_id=id, user_name=message.from_user.first_name, user_surname=message.from_user.last_name, username=message.from_user.username)
-    # time_now = datetime.datetime.now()
-    # time_val(user_id=id,login_time=time_now)
-      
-    # convert the path into clickable hyperlink
-    t1 =  '<a style="bold">{}</a>'.format(path)
-    if is_block is True:
+    url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
+    response = requests.request("GET", url1, headers=header)
+    print(response.status_code, "status code")
+    resp = response.text
+    if response.status_code == 200:
+        resp_dict = json.loads(resp)
+        account = resp_dict["user"]
+        if account['is_active'] is True:
+            bot.send_message(
+        message.chat.id,
+        f'CHI TRON Miner \n Is fully automatic. Start earning TRX now for free.',reply_markup=keyboard,parse_mode='HTML'
+    )
+        else:
+            bot.send_message(message.chat.id, f'You are blocked by Admin')
+    else:
+        response = requests.request("POST", url1, headers=header, data=payload)
         bot.send_message(
         message.chat.id,
         f'CHI TRON Miner \n Is fully automatic. Start earning TRX now for free.',reply_markup=keyboard,parse_mode='HTML'
     )
-    else:
-        bot.send_message(message.chat.id, f'You are blocked by Admin')
+    # else:
+    #     bot.send_message(message.chat.id, f'You are blocked by Admin')
 
 def menu_buttons():
     '<br>'
@@ -116,15 +122,17 @@ def query_handler(call):
     fname=call.from_user.first_name
     lname=call.from_user.last_name
     header = get_header_call(call)
-    end_point = 'v1/ranking'
+    end_point = 'v1/users'
     url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
     response = requests.request("GET", url1, headers=header)
     resp = response.text
+    print(resp)
     resp_dict = json.loads(resp)
+    account = resp_dict["user"]
     name = str(fname)+ " "+ str(lname)
     
     answer = ' '
-    if is_block is True:
+    if account['is_active'] is True:
         if call.data == 'account':
             answer = api_handler.handle_account_request(id,name,header)
         elif call.data == 'referals':
@@ -152,8 +160,14 @@ def Update_Email(message):
     # bot.answer_callback_query(callback_query_id=message.id)
     id = get_id(message)
     name = get_name(message)
-    #is_block = True
-    if is_block is True:
+    header = get_header(message)
+    end_point = 'v1/users'
+    url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
+    response = requests.request("GET", url1, headers=header)
+    resp = response.text
+    resp_dict = json.loads(resp)
+    account = resp_dict["user"]
+    if account['is_active'] is True:
         sent = bot.send_message(message.chat.id, 'Enter Your Email_Id:'  )
         bot.register_next_step_handler(sent, email)
     else:
@@ -188,8 +202,14 @@ def email(message):
 def Update_Wallet(message):
     id = get_id(message)
     name = get_name(message)
-    #is_block = True
-    if is_block is True:
+    header = get_header(message)
+    end_point = 'v1/users'
+    url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
+    response = requests.request("GET", url1, headers=header)
+    resp = response.text
+    resp_dict = json.loads(resp)
+    account = resp_dict["user"]
+    if account['is_active'] is True:
         sent = bot.send_message(message.chat.id, 'Enter Your Wallet:')
         bot.register_next_step_handler(sent, wallet)
     else:
@@ -225,10 +245,21 @@ def withdraw_request(message):
     # bot.answer_callback_query(callback_query_id=message.id)
     id = get_id(message)
     name = get_name(message)
+    header = get_header(message)
+    end_point = 'v1/users'
+    url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
+    response = requests.request("GET", url1, headers=header)
+    resp = response.text
+    print(resp)
+    resp_dict = json.loads(resp)
+    account = resp_dict["user"]
     #is_block = True
-    if is_block is True:
-        sent = bot.send_message(message.chat.id, 'Enter Amount You want to withdraw:'  )
-        bot.register_next_step_handler(sent, withdraw)
+    if account['is_active'] is True:
+        if account['total_balance'] >= 100:
+            sent = bot.send_message(message.chat.id, 'Enter Amount You want to withdraw:'  )
+            bot.register_next_step_handler(sent, withdraw)
+        else:
+            sent = bot.send_message(message.chat.id, 'Your Balance is low'  )
     else:
         bot.send_message(message.chat.id, f'You are blocked by Admin')
 
@@ -237,7 +268,6 @@ def withdraw(message):
         chat_id = get_id(message)
         name = get_name(message)
         email = message.text
-        print(email)
         end_point = 'v1/withdraw'
         url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
         #print((url1))

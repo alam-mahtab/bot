@@ -15,6 +15,7 @@ def handle_account_request(id,name,header):
   url1 = urllib.parse.urljoin(config.URL_Server, end_point).encode('utf-8').strip()
   response = requests.request("GET", url1, headers=header)
   resp = response.text
+  print(resp)
   resp_dict = json.loads(resp)
   account = resp_dict["user"]
   plan = resp_dict["user"]["subscribed_plans"]
@@ -63,7 +64,7 @@ def handle_referals_request(id,name,header):
     ▫️ Referrals: { refer['no_of_referrals']} \n \
     ▫️ Active Referrals: { refer['no_of_active_referrals'] } \n \
     ▫️ Bonus: 3 TRX Coin for every referrals. \n \
-    ▫️ Link: https://t.me/ChiTronMineBot?start="+str(referal_code)+"\n "
+    ▫️ Link: https://t.me/mixitupbot?start="+str(referal_code)+"\n "
   text = 'User:'+u_name+' with referal code:'+str(referal_code)+' views his/her referal statement' 
   #URL = 'https://api.telegram.org/bot'+(config.TOKEN)+'/sendMessage?chat_id='+(config.CHAT)+'&text='+text+''
   URL = config.URL_For_Response+text
